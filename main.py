@@ -1,13 +1,19 @@
-import json
-import Discord
-from Discord.ext import commands 
+import discord
+from discord.ext import commands
 
-with open("config.json") as e:
-    infos = json.load(e)
-    TOKEN = infos['token']
-    prefix = infos['prefix']
+client = discord.Client()
+client = commands.Bot(command_prefix="!")
 
-client = commands.Bot(command_prefix = prefix, 
-                        intents = Discord.Intents.all())
+@client.event
+async def on_ready():
+    print('Entrei como in as {0.user}'.format(client))
 
-client.run(TOKEN)
+
+@client.command(name='hey')
+async def _hey(ctx, arg):
+    await ctx.send('hey')
+
+
+
+
+client.run('')
