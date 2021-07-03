@@ -1,19 +1,48 @@
+import os
+
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
 
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
+GUILD = os.getenv('DISCORD_GUILD')
 client = discord.Client()
-client = commands.Bot(command_prefix="!")
+client = discord.commands.Bot(command_prefix = "!")
 
 @client.event
 async def on_ready():
-    print('Entrei como in as {0.user}'.format(client))
 
 
-@client.command(name='hey')
-async def _hey(ctx, arg):
-    await ctx.send('hey')
+    for guild in client.guilds:
+        if guild.name == GUILD:
+            break
+    print(f'Entrei {client.user} para acabar com seus ouvidos \n {guild.name} (id:{guild.id})')
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('!hey'):
+        await message.channel .send(f'hey, its me {client.user} vou acabar com seus ouvidos')
 
+'''@client.event
+async def join_us(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('!join'):
+        channel ='''
 
+'''@client.event
+async  def join_message(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('join'):'''
+'''@client.commands
+async def join(ctx):
+    channel = ctx.message.author.voice.voice_channel
+    await ctx.join_voice_channel(channel)
+@client.commands()
+async def leave(ctx):
+    await ctx.voice_client.disconnect()'''
 
-
-client.run('')
+client.run(TOKEN)
