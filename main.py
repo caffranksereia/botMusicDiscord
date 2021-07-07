@@ -3,13 +3,19 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+import music
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')#Token recebe o token criado no arquivo .env DISCORD_TOKEN
 GUILD = os.getenv('DISCORD_GUILD')#Guild recebe o DISCORD_GUILD NO arquivo .env DISCORD_GUILD
 
+cogs = [music]
+
+for i in range(len(cogs)):
+    cogs(i).setup()
+
 client = discord.Client()
-client = discord.commands.Bot(command_prefix = "!")
+client = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
 @client.event
 async def on_ready():
@@ -21,11 +27,13 @@ async def on_ready():
 
 @client.event
 #async função é ativado com !hey no discord
-async def on_message(message):#assincronia mensagem recebe o paramentro message
-    if message.author == client.user: #message autor é igual ao mensagem cliente
+async def on_message(ctx):#assincronia mensagem recebe o paramentro message
+    if ctx.author == client.user: #message autor é igual ao mensagem cliente
         return #retorna nada
-    if message.content.startswith('!hey'):#message começa com !hey
-        await message.channel .send(f'hey, its me {client.user} vou acabar com seus ouvidos')#retorna essa frase.
+    if ctx.content.startswith('!hey'):#message começa com !hey
+        await ctx.channel .send(f'hey, its me {client.user}!vou acabar com seus ouvidos')#retorna essa frase.
+
+
 
 '''@client.event
 async def join_us(message):
