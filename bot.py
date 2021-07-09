@@ -42,6 +42,17 @@ async def on_ready():
 async def hey(ctx):
     await ctx.send('hey! dude')
 
+@client.command()
+async  def joined(ctx):
+    await ctx.author.voice.channel.connect()
+    await ctx.send("hey! im here")
+
+
+@client.command()
+async def leave(ctx):
+    await ctx.voice_client.disconnect()
+    await ctx.send("bye")
+
 
 
 
