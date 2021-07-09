@@ -51,7 +51,7 @@ async  def joined(ctx):
 @client.command()
 async def leave(ctx):
     await ctx.voice_client.disconnect()
-    await ctx.send("bye")
+    await ctxsend("bye")
 
 
 
