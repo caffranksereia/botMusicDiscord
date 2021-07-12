@@ -3,7 +3,9 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-import youtube_dl
+from music import music
+
+
 
 
 
@@ -14,7 +16,7 @@ GUILD = os.getenv('DISCORD_GUILD')#Guild recebe o DISCORD_GUILD NO arquivo .env 
 
 client = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
-
+client.add_cog(music(client))
 
 '''
 for i in range(len(cogs)):
